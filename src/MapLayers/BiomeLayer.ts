@@ -133,7 +133,8 @@ export class BiomeLayer extends L.GridLayer {
 				const deltaY = tile.array[x + 1][z + 1].surface - this.y.value;
 				const belowSurface = y < tile.array[x + 1][z + 1].surface
 
-				tile.ctx.fillStyle = `rgb(${Math.min(Math.max(deltaY, 0), 100)}, ${Math.max(-deltaY, 0) * 200 / this.y.value}, ${Math.max(-10 * deltaY * deltaY + 255, 0)})`
+				const dd = Math.max(0, deltaY - 2)
+				tile.ctx.fillStyle = `rgb(${Math.min(Math.max(deltaY, 0), 100)}, ${Math.max(-deltaY, 0) * 200 / this.y.value}, ${Math.max(-16 * dd * dd + 255, 0)})`
 
 				// if (do_hillshade && tile.array[x + 1][z + 1].terrain < 0){
 				// 	hillshade = 0.15
