@@ -15,6 +15,7 @@ const uiStore = useUiStore()
 onBeforeMount(async () => {
   const loadedDimensionStore = useLoadedDimensionStore()
   await loadedDimensionStore.reload()
+  console.log(loadedDimensionStore)
   loaded.value = true
 
 })

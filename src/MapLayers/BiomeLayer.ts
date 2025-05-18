@@ -128,22 +128,31 @@ export class BiomeLayer extends L.GridLayer {
 				}
 
 				let hillshade = 1.0
+				let sat = 0.0
 				const y = project_down ? Math.min(tile.array[x + 1][z + 1].surface, this.y.value) : this.y.value
+				const deltaY = tile.array[x + 1][z + 1].surface - this.y.value;
 				const belowSurface = y < tile.array[x + 1][z + 1].surface
-				if (do_hillshade && tile.array[x + 1][z + 1].terrain < 0){
-					hillshade = 0.15
-				} else if (do_hillshade && project_down && !belowSurface) {
 
-					hillshade = calculateHillshade(
-						tile.array[x + 2][z + 1].surface - tile.array[x][z + 1].surface,
-						tile.array[x + 1][z + 2].surface - tile.array[x + 1][z].surface,
-						tile.step
-					)
-				}
+				tile.ctx.fillStyle = `rgb(${Math.min(Math.max(deltaY, 0), 100)}, ${Math.max(-deltaY, 0) * 200 / this.y.value}, ${Math.max(-10 * deltaY * deltaY + 255, 0)})`
 
-				let biomeColor = getBiomeColor(biome)
-				tile.ctx.fillStyle = `rgb(${biomeColor.r * hillshade}, ${biomeColor.g * hillshade}, ${biomeColor.b * hillshade})`
+				// if (do_hillshade && tile.array[x + 1][z + 1].terrain < 0){
+				// 	hillshade = 0.15
+				// } else if (1) {
+				// 	hillshade = !deltaY ? 1 : deltaY > 1 ? 0.8 - Math.sqrt(deltaY / this.y.value) / 10 : 0.8 - Math.sqrt(-deltaY / this.y.value)
+				// 	sat = !deltaY ? 0 : 0.5 + Math.min(Math.abs(deltaY) / this.y.value, 0.45)
+				// } else if (do_hillshade && project_down && !belowSurface) {
+				// 	hillshade = calculateHillshade(
+				// 		tile.array[x + 2][z + 1].surface - tile.array[x][z + 1].surface,
+				// 		tile.array[x + 1][z + 2].surface - tile.array[x + 1][z].surface,
+				// 		tile.step
+				// 	)
+				// }
 
+				// let biomeColor = getBiomeColor(biome)
+				// const avgColor = (biomeColor.r + biomeColor.g + biomeColor.b) / 3
+				// const fn = (c: number) => Math.min((sat * avgColor + (1-sat) * c) * hillshade, 255)
+				// tile.ctx.fillStyle = `rgb(${fn(biomeColor.r)}, ${fn(biomeColor.g)}, ${fn(biomeColor.b)})`
+				
 				tile.ctx.fillRect(x / this.calcResolution, z / this.calcResolution, 1 / this.calcResolution, 1 / this.calcResolution)
 
 				if (show_sealevel && !belowSurface) {

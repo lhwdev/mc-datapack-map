@@ -16,7 +16,7 @@ export const useDatapackStore = defineStore('datapacks', () => {
     const settingsStore = useSettingsStore()
 
     const metadata = versionMetadata[settingsStore.mc_version];
-    const vanillaDatapack = Datapack.fromZipUrl(`./vanilla_datapacks/vanilla_${metadata.vanillaDatapack}.zip`, metadata.datapackFormat)
+    const vanillaDatapack = Datapack.fromZipUrl(`https://map.jacobsjo.eu/vanilla_datapacks/vanilla_${metadata.vanillaDatapack}.zip`, metadata.datapackFormat)
 
     let last_key = 0
 
@@ -38,7 +38,7 @@ export const useDatapackStore = defineStore('datapacks', () => {
             return
 
         const metadata = versionMetadata[settingsStore.mc_version];
-        const vanillaDatapack = Datapack.fromZipUrl(`./vanilla_datapacks/vanilla_${metadata.vanillaDatapack}.zip`, metadata.datapackFormat)
+        const vanillaDatapack = Datapack.fromZipUrl(`https://map.jacobsjo.eu/vanilla_datapacks/vanilla_${metadata.vanillaDatapack}.zip`, metadata.datapackFormat)
         datapacks[0].datapack = vanillaDatapack
         datapacks[0].key = ++last_key
 

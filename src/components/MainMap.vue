@@ -143,7 +143,7 @@ function getPosition(map: L.Map, latlng: L.LatLng) {
 
     const surface = (loadedDimensionStore.surface_density_function)?.compute(DensityFunction.context((pos.x >> 2) << 2, y.value, (pos.y >> 2) << 2)) ?? Number.POSITIVE_INFINITY
 
-    const pos_y: number = project_down.value ? Math.min(surface, y.value) : y.value
+    const pos_y: number = surface //project_down.value ? Math.min(surface, y.value) : y.value
     return BlockPos.create(pos.x, pos_y, pos.y)
 }
 
